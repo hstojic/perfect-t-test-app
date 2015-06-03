@@ -13,4 +13,5 @@ some description of the repository...
 ## Secondary  
 - what downloadables would be available? figures? report?  
 - impose some restrictions - like data size?  
-- in data tab - show head() or all data? user can choose how many rows?
+- in data tab - show head() or all data? user can choose how many rows?  
+- give an example of how the data should look like - use our examples?

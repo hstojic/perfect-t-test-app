@@ -15,13 +15,13 @@ shinyUI(
 
             br(),
             
-            h1("Your data"),
+            #h1("Your data"),
             
             fluidRow(
-                column(4, 
+                column(6, 
                     wellPanel(
                         fileInput('data_file', 
-                                  'Upload the file',
+                                  h4('Step 1: Upload the file'),
                                   accept=c('text/csv', 
                                     'text/comma-separated-values,text/plain', 
                                     '.csv')),
@@ -33,42 +33,40 @@ shinyUI(
                         radioButtons('quote', 'Quote',
                             c(None='', 'Double Quote'='"', 'Single Quote'="'"),
                             '"')
-                    )
-                ),
-
-                # Show the output
-                column(4,
-                    h4("First 30 rows of your data"),
-                    tableOutput(outputId = "data_table")
-                ), 
-
-                # conditional part with variable names etc, once the data is uploaded
-                column(4, 
+                    ),
                     wellPanel(
-                        h4("What type of test do you wish to do?"),
+                        h4("Step2: What type of test do you wish to do?"),
                         radioButtons('test_type', "",
                                      c(Independent = 'independent', 
                                        Dependent = 'dependent'),
                                      'independent')
                     ),
                     wellPanel(
-                        h4("Set the variables"),
-                        textInput("factorlabel", "What variable determines the groups?", "Group variable"),
-                        textInput("measurelabel", "What variable is the dependent measure?", "Dependent variable"),
-                        textInput("xlabel", "What will be your group 1?", value = "Group 1"),
-                        textInput("ylabel", "What will be your group 2?", value = "Group 2")
-                        #uiOutput("variables"),
+                        h4("Step 3: Set the variables"),
+                        # textInput("factorlabel", "What variable determines the groups?", "Group variable"),
+                        # textInput("measurelabel", "What variable is the dependent measure?", "Dependent variable"),
+                        # textInput("xlabel", "What will be your group 1?", value = "Group 1"),
+                        # textInput("ylabel", "What will be your group 2?", value = "Group 2")
+                        uiOutput("variables")
                         #uiOutput("groups")
                     ),
                     wellPanel(
-                        h4("Set the labels for figures"),
+                        h4("Step 4: Set the labels for figures"),
                         textInput("xlabelstring", "Define the name of the variable displayed on x axis", value = "x axis label"),
-                        textInput("ylabelstring", "Define the name of the variable displayed on y axis", value = "y axis label"),
-                        # submit button
-                        submitButton("Update data")
+                        textInput("ylabelstring", "Define the name of the variable displayed on y axis", value = "y axis label")
                         #uiOutput("labels")
-                    )
-                )
+                    ),
+                    # submit button
+                    submitButton("Data is ready!"),
+                    br(),
+                    br()
+                ),
+                column(2),
+                # Show the output
+                column(4,
+                    h4("First 30 rows of your data"),
+                    tableOutput(outputId = "data_table")
+                ) 
             )  # END of row
         )  # end of page
     ),
@@ -155,7 +153,7 @@ shinyUI(
     # 4th tab with robust stats
     tabPanel("Robust tests",
         fluidPage(
-
+            withMathJax(),
             # row with explanations of the figure
             fluidRow(
                 column(10, includeMarkdown("instructions_robust.md") ),
@@ -201,7 +199,9 @@ shinyUI(
     # 5th tab with bayes tests
     tabPanel("Bayesian tests",
         fluidPage(
-
+            withMathJax(),
+            helpText('An irrational number \\(\\sqrt{2}\\)
+           and a fraction $$1-\\frac{1}{2}$$'),
             # TO DO 
             # 1) we'll need some waiting indicator, or computation in progress
             # 2) in a hurry TRUE by default
